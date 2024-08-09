@@ -8,13 +8,13 @@ import RegisterTodoButton from '../../components/RegisterTodoButton/RegisterTodo
 import MainContainer from '../../components/MainContainer/MainContainer';
 import { Route, Routes } from 'react-router-dom';
 import TodoAll from '../TodoAll/TodoAll';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { refreshTodolistAtom, todolistAtom } from '../../atoms/todolistAtoms';
 import { getTodoAllApi, getTodoCountsApi } from '../../apis/todoApis/getTodoApi';
 
 
 function Dashboard(props) {
-    const setTodolistAll = useRecoilState(todolistAtom);
+    const setTodolistAll = useSetRecoilState(todolistAtom);
     const [ refresh, setRefresh ] = useState(refreshTodolistAtom);
 
     const requestTodolist = async () => {
