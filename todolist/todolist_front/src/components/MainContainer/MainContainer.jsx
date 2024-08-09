@@ -3,7 +3,7 @@ import React, { Children, useCallback, useEffect, useRef, useState } from 'react
 import * as s from "./style";
 import RegisterModal from '../RegisterModal/RegisterModal';
 
-function MainContainer({children}) {
+function    MainContainer({children}) {
 
     const [ modalElement, setModalElement ] = useState(<></>);
     const containerRef = useRef();
@@ -62,3 +62,4 @@ function MainContainer({children}) {
 }
 
 export default MainContainer;
+

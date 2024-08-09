@@ -5,8 +5,6 @@ import { useAsync } from 'react-select/async';
 // props.children을 비구조 할당으로 children 구조분해 
 import { IoCellularSharp } from "react-icons/io5";
 import { IoIosBatteryFull, IoIosWifi   } from "react-icons/io";
-import MainContainer from '../MainContainer/MainContainer';
-import RegisterModal from '../RegisterModal/RegisterModal';
 function MainLayout({ children }) {
     const [ clock, setClock ] = useState("0:00");
 
@@ -29,9 +27,7 @@ function MainLayout({ children }) {
                         <IoCellularSharp /><IoIosWifi /><IoIosBatteryFull />
                     </div>
                 </div>
-                <MainContainer>
-                    { children }
-                </MainContainer>
+                { children }
             </div>
         </div>
     );

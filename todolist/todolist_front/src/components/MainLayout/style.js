@@ -43,7 +43,7 @@ export const clock = css`
     width: 32%;
     font-size: 15px;
     font-weight: 600;
-    cursor: pointer;
+    cursor: default;
 `;
 
 export const rightItems = css`

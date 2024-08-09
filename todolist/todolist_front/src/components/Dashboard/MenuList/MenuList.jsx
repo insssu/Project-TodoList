@@ -3,11 +3,22 @@ import React from 'react';
 import * as s from "./style";
 import DashboardListItem from '../DashboardListItem/DashboardListItem';
 import Icon from '../Icon/Icon';
-import { BsCalendar4Week, BsCalendar4Event } from "react-icons/bs";
+import { BsCalendar4Week, BsCalendar4Event, BsCalendarCheck } from "react-icons/bs";
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { todolistAtom } from '../../../atoms/todolistAtoms';
+import { MENUS } from '../../../constants/menus';
 
-function Menu({ icon, color, title, count }) {
+function Menu({ path, icon, color, title, count }) {
+    const navigate = useNavigate();
+
+    // 클릭하면 해당 path로 이동해라
+    const handleClick = () => {
+        navigate(path);
+    }
+
     return (
-        <div css={s.menuContainer}>
+        <div css={s.menuContainer} onClick={handleClick}>
             <div css={s.menuTop}>
                 <Icon color={color}>{icon}</Icon>
                 <p>{count}</p>
@@ -20,34 +31,40 @@ function Menu({ icon, color, title, count }) {
 }
 
 function MenuList(props) {
-    return (
-        <DashboardListItem title={"Menu :D"}>
+    const [ todolist ] = useRecoilState(todolistAtom);
+    return ( 
+        <DashboardListItem title={"⛄ Menu"}>
             <div css={s.layout}>
                 <Menu 
+                    icon={<BsCalendar4Event />} 
+                    path={MENUS.today.path}
+                    color={MENUS.today.color} 
+                    title={MENUS.today.title} 
+                    count={todolist.counts.today} />  
+                <Menu 
                     icon={<BsCalendar4Week />} 
-                    color={"#444444"} 
-                    title={"전체"} 
-                    count={99} />                
+                    path={MENUS.all.path}
+                    color={MENUS.all.color} 
+                    title={MENUS.all.title}
+                    count={todolist.counts.all} />                
                 <Menu 
                     icon={<BsCalendar4Event />} 
-                    color={"#46e94e"} 
-                    title={"오늘"} 
-                    count={6} />  
+                    path={MENUS.busy.path}
+                    color={MENUS.busy.color} 
+                    title={MENUS.busy.title}
+                    count={todolist.counts.busy} />  
                 <Menu 
                     icon={<BsCalendar4Event />} 
-                    color={"#e61616"} 
-                    title={"급한 일"} 
-                    count={10} />  
+                    path={MENUS.important.path}
+                    color={MENUS.important.color} 
+                    title={MENUS.important.title}
+                    count={todolist.counts.important} /> 
                 <Menu 
-                    icon={<BsCalendar4Event />} 
-                    color={"#8d1b9c"} 
-                    title={"중요한 일"} 
-                    count={31} />  
-                <Menu 
-                    icon={<BsCalendar4Event />} 
-                    color={"#444444"} 
-                    title={"전체"} 
-                    count={99} />  
+                    icon={<BsCalendarCheck />} 
+                    path={MENUS.complete.path}
+                    color={MENUS.complete.color} 
+                    title={MENUS.complete.title} 
+                    count={todolist.counts.complete } />  
             </div>
         </DashboardListItem>
     );

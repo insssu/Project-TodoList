@@ -4,6 +4,8 @@ import * as s from "./style";
 import ReactSelect from 'react-select';
 import { addTodoApi } from '../../apis/todoApis/addTodoApi';
 import { date } from '../Dashboard/DateTitle/style';
+import { useSetRecoilState } from 'recoil';
+import { refreshTodolistAtom } from '../../atoms/todolistAtoms';
 
 function RegisterTodo({closeModal}) {
     const importantOptions = [
@@ -15,6 +17,8 @@ function RegisterTodo({closeModal}) {
         { label: "🥩🍻 " + "급함", value: 1, },
         { label: "🥦 " + "안급함", value: 2, },
     ];
+
+    const setRefresh = useSetRecoilState(refreshTodolistAtom);
     
     const [ todo, setTodo ] = useState({
         title: "",
@@ -62,9 +66,10 @@ function RegisterTodo({closeModal}) {
         // }))
     }
 
-    const handleSubmitClick = () => {
+    const handleSubmitClick = () => {   // todo 추가하고 나서 refresh를 해줘야 함
         console.log(todo);
         addTodoApi(todo);
+        setRefresh(true);               // 
         closeModal();
     }
 

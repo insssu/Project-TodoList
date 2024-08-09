@@ -1,14 +1,12 @@
 package com.study.todolist.controller;
 
 import com.study.todolist.dto.request.todo.ReqAddTodoDto;
+import com.study.todolist.dto.response.todo.RespTodoDto;
 import com.study.todolist.service.TodoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -22,6 +20,16 @@ public class TodoController {
     public ResponseEntity<?> add(@RequestBody ReqAddTodoDto dto) {
         int successCount = todoService.addTodo(dto);    // 6.
         return ResponseEntity.created(null).body(successCount);
+    }
+
+    @GetMapping("/todolist")
+    public ResponseEntity<?> getAll(RespTodoDto dto) {
+        return ResponseEntity.ok().body(todoService.getTodoList());
+    }
+
+    @GetMapping("/todo/counts")
+    public ResponseEntity<?> getCounts() {
+        return ResponseEntity.ok().body(todoService.getTodoCounts());
     }
 
 }
